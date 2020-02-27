@@ -15,8 +15,6 @@ if [[ -z "$APP" ]]; then  # Check if command has an app
 else
     if [[ -n $(pgrep "${APP}") ]]; then  # Check if app is running
         bring-to-front
-    elif [[ -n $(ps -aux | grep "${APP}") ]]; then
-        bring-to-front
     else
         notify-send "Opening '${APP}'"
         $(compgen -c | grep $APP | head -n 1) > /dev/null  # Start app
