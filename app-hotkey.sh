@@ -3,10 +3,15 @@
 APP=$1
 
 function bring-to-front {
-    wmctrl -i -a $(wmctrl -lp | tr '[:upper:]' '[:lower:]' | grep "${APP}" | cut '-d ' -f1)
-
-    if [[ $? != 0 ]]; then
-        wmctrl -i -a $(wmctrl -lx | tr '[:upper:]' '[:lower:]' | grep "${APP}" | cut '-d ' -f1)
+    WINDOWS=$(wmctrl -lp | tr '[:upper:]' '[:lower:]' | grep "${APP}" | cut '-d ' -f1)
+    
+    if [[ $? == 0 ]]; then
+        for I in $WINDOWS
+        do
+            wmctrl -i -a $I
+        done
+    else
+        printf "\n--> Failed to find window \n"
     fi
 }
 
